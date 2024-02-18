@@ -1,6 +1,16 @@
-﻿namespace Entities;
-
-public class Applicant : User
+﻿namespace Entities.Concretes
 {
-    public string About { get; set; }
+    public class Applicant : User
+    {
+        public string About { get; set; }
+        public Applicant()
+        {
+        }
+
+        public Applicant(int userId, string about)
+        {
+            Id = userId;
+            About = about;
+        }
+    }
 }

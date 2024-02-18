@@ -1,18 +1,14 @@
-﻿using Entities;
+﻿using Entities.Concretes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccess.Concretes.EntityFramework.EntityTypeConfigurations;
-
-public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+namespace DataAccess.Concretes.EntityFramework.EntityTypeConfigurations
 {
-    public void Configure(EntityTypeBuilder<Employee> builder)
+    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     {
-        builder.ToTable("Employees");
-        builder.HasOne<User>().WithOne().HasForeignKey<Employee>(a => a.Id);
-
-
-        builder.Property(x => x.Position).HasColumnName("Position");
-        
+        public void Configure(EntityTypeBuilder<Employee> builder)
+        {
+            builder.Property(x => x.Position).HasColumnName("Position").IsRequired();
+        }
     }
 }

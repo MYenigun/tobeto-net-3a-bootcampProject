@@ -1,6 +1,16 @@
-﻿namespace Entities;
-
-public class Employee : User
+﻿namespace Entities.Concretes
 {
-    public string Position { get; set; }
+    public class Employee : User
+    {
+        public string Position { get; set; }
+
+        public Employee()
+        {
+        }
+        public Employee(int userId, string position)
+        {
+            Id = userId;
+            Position = position;
+        }
+    }
 }

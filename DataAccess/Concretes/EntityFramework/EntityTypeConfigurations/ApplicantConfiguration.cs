@@ -1,17 +1,14 @@
-﻿using Entities;
+﻿using Entities.Concretes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccess.Concretes.EntityFramework.EntityTypeConfigurations;
-
-public class ApplicantConfiguration : IEntityTypeConfiguration<Applicant>
+namespace DataAccess.Concretes.EntityFramework.EntityTypeConfigurations
 {
-    public void Configure(EntityTypeBuilder<Applicant> builder)
+    public class ApplicantConfiguration : IEntityTypeConfiguration<Applicant>
     {
-        builder.ToTable("Applicants");
-        builder.HasOne<User>().WithOne().HasForeignKey<Applicant>(a => a.Id);
-
-        builder.Property(x => x.About).HasColumnName("About");
-        
+        public void Configure(EntityTypeBuilder<Applicant> builder)
+        {
+            builder.Property(x => x.About).HasColumnName("About").IsRequired();
+        }
     }
 }
