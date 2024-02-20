@@ -1,14 +1,13 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstracts;
 using DataAccess.Concretes.EntityFramework.Contexts;
-using Entities.Concretes;
+using Entities;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories;
+
+public class ApplicantRepository : EfRepositoryBase<Applicant, int, BaseDbContext>, IApplicantRepository
 {
-    public class ApplicantRepository : EfRepositoryBase<Applicant, int, BaseDbContext>, IApplicantRepository
+    public ApplicantRepository(BaseDbContext context) : base(context)
     {
-        public ApplicantRepository(BaseDbContext context) : base(context)
-        {
-        }
     }
 }

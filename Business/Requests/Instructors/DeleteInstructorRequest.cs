@@ -1,8 +1,7 @@
-﻿namespace Business.Requests.Instructors
+﻿namespace Business.Requests.Instructors;
+
+public class DeleteInstructorRequest
 {
-    public class DeleteInstructorRequest
-    {
-        public int UserId { get; set; }
-        public string CompanyName { get; set; }
-    }
+    public int Id { get; set; }
+
 }

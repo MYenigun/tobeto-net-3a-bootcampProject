@@ -17,22 +17,16 @@ namespace WebAPI.Controllers
             _instructorService = instructorService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _instructorService.GetAll());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            return Ok(await _instructorService.GetById(id));
-        }
-
         [HttpPost]
         public async Task<CreateInstructorResponse> AddAsync(CreateInstructorRequest request)
         {
             return await _instructorService.AddAsync(request);
+        }
+
+        [HttpPut]
+        public async Task<UpdateInstructorResponse> UpdateAsync(UpdateInstructorRequest request)
+        {
+            return await _instructorService.UpdateAsync(request);
         }
 
         [HttpDelete]
@@ -41,10 +35,16 @@ namespace WebAPI.Controllers
             return await _instructorService.DeleteAsync(request);
         }
 
-        [HttpPut]
-        public async Task<UpdateInstructorResponse> UpdateAsync(UpdateInstructorRequest request)
+        [HttpGet]
+        public async Task<List<GetAllInstructorResponse>> GetAllAsync()
         {
-            return await _instructorService.UpdateAsync(request);
+            return await _instructorService.GetAllAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<GetByIdInstructorResponse> GetByIdAsync(int id)
+        {
+            return await _instructorService.GetByIdAsync(id);
         }
     }
 }

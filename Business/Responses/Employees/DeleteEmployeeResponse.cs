@@ -1,8 +1,7 @@
-﻿namespace Business.Responses.Employees
+﻿namespace Business.Responses.Employees;
+
+public class DeleteEmployeeResponse
 {
-    public class DeleteEmployeeResponse
-    {
-        public int UserId { get; set; }
-        public string Position { get; set; }
-    }
+    public string Username { get; set; }
+    public DateTime DeletedDate { get; set; }
 }

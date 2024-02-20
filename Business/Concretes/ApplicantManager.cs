@@ -2,77 +2,128 @@
 using Business.Requests.Applicants;
 using Business.Responses.Applicants;
 using DataAccess.Abstracts;
-using Entities.Concretes;
+using Entities;
 
-namespace Business.Concretes
+namespace Business.Concretes;
+
+public class ApplicantManager : IApplicantService
 {
-    public class ApplicantManager : IApplicantService
+    private readonly IApplicantRepository _applicantRepository;
+
+    public ApplicantManager(IApplicantRepository applicantRepository)
     {
-        private readonly IApplicantRepository _applicantRepository;
-        public ApplicantManager(IApplicantRepository applicantRepository)
+        _applicantRepository = applicantRepository;
+    }
+
+    public async Task<CreateApplicantResponse> AddAsync(CreateApplicantRequest request)
+    {
+        Applicant applicant = new();
+        applicant.Username = request.Username;
+        applicant.FirstName = request.FirstName;
+        applicant.LastName = request.LastName;
+        applicant.DateOfBirth = request.DateOfBirth;
+        applicant.NationalIdentity = request.NationalIdentity;
+        applicant.Email = request.Email;
+        applicant.Password = request.Password;
+        applicant.About = request.About;
+
+        await _applicantRepository.AddAsync(applicant);
+
+        CreateApplicantResponse applicantResponse = new();
+        applicantResponse.Username = applicant.Username;
+        applicantResponse.FirstName = applicant.FirstName;
+        applicantResponse.LastName = applicant.LastName;
+        applicantResponse.DateOfBirth = applicant.DateOfBirth;
+        applicantResponse.NationalIdentity = applicant.NationalIdentity;
+        applicantResponse.Email = applicant.Email;
+        applicantResponse.Password = applicant.Password;
+        applicantResponse.About = applicant.About;
+        applicantResponse.CreatedDate = applicant.CreatedDate;
+
+        return applicantResponse;
+
+    }
+
+    public async Task<DeleteApplicantResponse> DeleteAsync(DeleteApplicantRequest request)
+    {
+        var applicant = await _applicantRepository.GetAsync(a => a.Id == request.Id);
+
+        await _applicantRepository.DeleteAsync(applicant);
+
+        DeleteApplicantResponse deleteApplicantResponse = new();
+        deleteApplicantResponse.Username = applicant.Username;
+        deleteApplicantResponse.DeletedDate = applicant.DeletedDate;
+
+
+        return deleteApplicantResponse;
+    }
+
+    public async Task<List<GetAllApplicantResponse>> GetAllAsync()
+    {
+        List<GetAllApplicantResponse> applicantResponses = new();
+        foreach (var item in await _applicantRepository.GetAllAsync())
         {
-            _applicantRepository = applicantRepository;
+            GetAllApplicantResponse result = new();
+            result.Id = item.Id;
+            result.Username = item.Username;
+            result.FirstName = item.FirstName;
+            result.LastName = item.LastName;
+            result.DateOfBirth = item.DateOfBirth;
+            result.NationalIdentity = item.NationalIdentity;
+            result.Email = item.Email;
+            result.Password = item.Password;
+            result.About = item.About;
+            applicantResponses.Add(result);
         }
+        return applicantResponses;
 
-        public async Task<List<GetAllApplicantResponse>> GetAll()
-        {
-            List<GetAllApplicantResponse> instructors = new List<GetAllApplicantResponse>();
-            foreach (var applicant in await _applicantRepository.GetAll())
-            {
-                GetAllApplicantResponse response = new();
-                response.UserId = applicant.Id;
-                response.About = applicant.About;
-                instructors.Add(response);
-            }
-            return instructors;
-        }
 
-        public async Task<GetByIdApplicantResponse> GetById(int id)
-        {
-            GetByIdApplicantResponse response = new();
-            Applicant applicant = await _applicantRepository.Get(x => x.Id == id);
-            response.UserId = applicant.Id;
-            response.About = applicant.About;
-            return response;
-        }
+    }
 
-        public async Task<CreateApplicantResponse> AddAsync(CreateApplicantRequest request)
-        {
-            Applicant applicant = new();
-            applicant.Id = request.UserId;
-            applicant.About = request.About;
-            await _applicantRepository.Add(applicant);
+    public async Task<GetByIdApplicantResponse> GetByIdAsync(int id)
+    {
+        var result = await _applicantRepository.GetAsync(a => a.Id == id);
 
-            CreateApplicantResponse response = new();
-            response.UserId = applicant.Id;
-            response.About = applicant.About;
-            return response;
-        }
+        GetByIdApplicantResponse getByIdApplicantResponse = new();
+        getByIdApplicantResponse.Id = result.Id;
+        getByIdApplicantResponse.Username = result.Username;
+        getByIdApplicantResponse.FirstName = result.FirstName;
+        getByIdApplicantResponse.LastName = result.LastName;
+        getByIdApplicantResponse.DateOfBirth = result.DateOfBirth;
+        getByIdApplicantResponse.NationalIdentity = result.NationalIdentity;
+        getByIdApplicantResponse.Email = result.Email;
+        getByIdApplicantResponse.Password = result.Password;
+        getByIdApplicantResponse.About = result.About;
 
-        public async Task<DeleteApplicantResponse> DeleteAsync(DeleteApplicantRequest request)
-        {
-            Applicant applicant = new();
-            applicant.Id = request.UserId;
-            applicant.About = request.About;
-            await _applicantRepository.Delete(applicant);
+        return getByIdApplicantResponse;
+    }
 
-            DeleteApplicantResponse response = new();
-            response.UserId = request.UserId;
-            response.About = request.About;
-            return response;
-        }
+    public async Task<UpdateApplicantResponse> UpdateAsync(UpdateApplicantRequest request)
+    {
+        var result = await _applicantRepository.GetAsync(a => a.Id == request.Id);
+        result.Id = request.Id;
+        result.Username = request.Username;
+        result.FirstName = request.FirstName;
+        result.LastName = request.LastName;
+        result.DateOfBirth = request.DateOfBirth;
+        result.NationalIdentity = request.NationalIdentity;
+        result.Email = request.Email;
+        result.Password = request.Password;
+        result.About = request.About;
 
-        public async Task<UpdateApplicantResponse> UpdateAsync(UpdateApplicantRequest request)
-        {
-            Applicant applicant = await _applicantRepository.Get(x => x.Id == request.UserId);
-            applicant.Id = request.UserId;
-            applicant.About = request.About;
-            await _applicantRepository.Update(applicant);
+        await _applicantRepository.UpdateAsync(result);
 
-            UpdateApplicantResponse response = new();
-            response.UserId = applicant.Id;
-            response.About = applicant.About;
-            return response;
-        }
+        UpdateApplicantResponse applicantResponse = new();
+        applicantResponse.Username = result.Username;
+        applicantResponse.FirstName = result.FirstName;
+        applicantResponse.LastName = result.LastName;
+        applicantResponse.DateOfBirth = result.DateOfBirth;
+        applicantResponse.NationalIdentity = result.NationalIdentity;
+        applicantResponse.Email = result.Email;
+        applicantResponse.Password = result.Password;
+        applicantResponse.About = result.About;
+        applicantResponse.UpdatedDate = result.UpdatedDate;
+
+        return applicantResponse;
     }
 }

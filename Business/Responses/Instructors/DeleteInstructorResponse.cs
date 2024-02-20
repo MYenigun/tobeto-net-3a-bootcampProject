@@ -1,8 +1,8 @@
-﻿namespace Business.Responses.Instructors
+﻿namespace Business.Responses.Instructors;
+
+public class DeleteInstructorResponse
 {
-    public class DeleteInstructorResponse
-    {
-        public int UserId { get; set; }
-        public string CompanyName { get; set; }
-    }
+    public string Username { get; set; }
+    public DateTime DeletedDate { get; set; }
+
 }

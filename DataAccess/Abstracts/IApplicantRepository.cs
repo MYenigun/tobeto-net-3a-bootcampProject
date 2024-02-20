@@ -1,9 +1,8 @@
 ﻿using Core.DataAccess;
-using Entities.Concretes;
+using Entities;
 
-namespace DataAccess.Abstracts
+namespace DataAccess.Abstracts;
+
+public interface IApplicantRepository : IRepository<Applicant, int>, IAsyncRepository<Applicant, int>
 {
-    public interface IApplicantRepository : IAsyncRepository<Applicant, int>
-    {
-    }
 }

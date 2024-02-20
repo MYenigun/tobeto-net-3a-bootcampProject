@@ -1,8 +1,7 @@
-﻿namespace Business.Responses.Applicants
+﻿namespace Business.Responses.Applicants;
+
+public class DeleteApplicantResponse
 {
-    public class DeleteApplicantResponse
-    {
-        public int UserId { get; set; }
-        public string About { get; set; }
-    }
+    public string Username { get; set; }
+    public DateTime DeletedDate { get; set; }
 }

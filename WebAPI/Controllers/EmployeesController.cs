@@ -1,6 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.Requests.Employees;
 using Business.Responses.Employees;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -16,22 +17,16 @@ namespace WebAPI.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _employeeService.GetAll());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            return Ok(await _employeeService.GetById(id));
-        }
-
         [HttpPost]
         public async Task<CreateEmployeeResponse> AddAsync(CreateEmployeeRequest request)
         {
             return await _employeeService.AddAsync(request);
+        }
+
+        [HttpPut]
+        public async Task<UpdateEmployeeResponse> UpdateAsync(UpdateEmployeeRequest request)
+        {
+            return await _employeeService.UpdateAsync(request);
         }
 
         [HttpDelete]
@@ -40,10 +35,16 @@ namespace WebAPI.Controllers
             return await _employeeService.DeleteAsync(request);
         }
 
-        [HttpPut]
-        public async Task<UpdateEmployeeResponse> UpdateAsync(UpdateEmployeeRequest request)
+        [HttpGet]
+        public async Task<List<GetAllEmployeeResponse>> GetAllAsync()
         {
-            return await _employeeService.UpdateAsync(request);
+            return await _employeeService.GetAllAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<GetByIdEmployeeResponse> GetByIdAsync(int id)
+        {
+            return await _employeeService.GetByIdAsync(id);
         }
     }
 }

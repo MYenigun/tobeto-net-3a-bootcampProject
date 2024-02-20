@@ -1,8 +1,7 @@
-﻿namespace Business.Requests.Employees
+﻿namespace Business.Requests.Employees;
+
+public class DeleteEmployeeRequest
 {
-    public class DeleteEmployeeRequest
-    {
-        public int UserId { get; set; }
-        public string Position { get; set; }
-    }
+    public int Id { get; set; }
+
 }

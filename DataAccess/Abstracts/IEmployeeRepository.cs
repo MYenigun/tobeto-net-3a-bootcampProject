@@ -1,9 +1,8 @@
 ﻿using Core.DataAccess;
-using Entities.Concretes;
+using Entities;
 
-namespace DataAccess.Abstracts
+namespace DataAccess.Abstracts;
+
+public interface IEmployeeRepository : IRepository<Employee, int>, IAsyncRepository<Employee, int>
 {
-    public interface IEmployeeRepository : IAsyncRepository<Employee, int>
-    {
-    }
 }

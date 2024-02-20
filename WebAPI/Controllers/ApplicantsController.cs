@@ -17,28 +17,10 @@ namespace WebAPI.Controllers
             _applicantService = applicantService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _applicantService.GetAll());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            return Ok(await _applicantService.GetById(id));
-        }
-
         [HttpPost]
         public async Task<CreateApplicantResponse> AddAsync(CreateApplicantRequest request)
         {
             return await _applicantService.AddAsync(request);
-        }
-
-        [HttpDelete]
-        public async Task<DeleteApplicantResponse> DeleteAsync(DeleteApplicantRequest request)
-        {
-            return await _applicantService.DeleteAsync(request);
         }
 
         [HttpPut]
@@ -47,5 +29,22 @@ namespace WebAPI.Controllers
             return await _applicantService.UpdateAsync(request);
         }
 
+        [HttpDelete]
+        public async Task<DeleteApplicantResponse> DeleteAsync(DeleteApplicantRequest request)
+        {
+            return await _applicantService.DeleteAsync(request);
+        }
+
+        [HttpGet]
+        public async Task<List<GetAllApplicantResponse>> GetAllAsync()
+        {
+            return await _applicantService.GetAllAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<GetByIdApplicantResponse> GetByIdAsync(int id)
+        {
+            return await _applicantService.GetByIdAsync(id);
+        }
     }
 }

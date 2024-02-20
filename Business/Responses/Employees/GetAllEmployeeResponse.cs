@@ -1,8 +1,16 @@
-﻿namespace Business.Responses.Employees
+﻿namespace Business.Responses.Employees;
+
+public class GetAllEmployeeResponse
 {
-    public class GetAllEmployeeResponse
-    {
-        public int UserId { get; set; }
-        public string Position { get; set; }
-    }
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public string NationalIdentity { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public string Position { get; set; }
 }
+
+
