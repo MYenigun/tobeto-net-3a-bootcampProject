@@ -2,7 +2,7 @@
 
 namespace Entities;
 
-public class Application:BaseEntity<int>
+public class Application : BaseEntity<int>
 {
     public int ApplicantId { get; set; }
     public int BootcampId { get; set; }
@@ -14,10 +14,10 @@ public class Application:BaseEntity<int>
 
     public Application()
     {
-        
+
     }
 
-    public Application(int id,int applicantId, int bootcampId, int applicationStateid):this()
+    public Application(int id, int applicantId, int bootcampId, int applicationStateid) : this()
     {
         Id = id;
         ApplicantId = applicantId;

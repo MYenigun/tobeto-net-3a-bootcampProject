@@ -6,7 +6,7 @@ public class Result : IResult
 
     public string Message { get; }
 
-    public Result(bool success,string message):this(success)
+    public Result(bool success, string message) : this(success)
     {
         Message = message;
     }

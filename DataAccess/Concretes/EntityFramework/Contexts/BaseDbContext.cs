@@ -16,6 +16,9 @@ public class BaseDbContext : DbContext
     public DbSet<ApplicationState> ApplicationStates { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
     public DbSet<BootcampState> BootcampStates { get; set; }
+    public DbSet<UserImage> UserImages { get; set; }
+    public DbSet<BlackList> BlackLists { get; set; }
+
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
