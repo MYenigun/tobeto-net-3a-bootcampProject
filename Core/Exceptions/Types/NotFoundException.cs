@@ -2,7 +2,7 @@
 
 namespace Core.Exceptions.Types;
 
-public class NotFoundException:Exception
+public class NotFoundException : Exception
 {
     public NotFoundException() { }
     protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { }

@@ -2,7 +2,7 @@
 
 namespace Core.Exceptions.Types;
 
-public class AuthorizationException:Exception
+public class AuthorizationException : Exception
 {
     public AuthorizationException() { }
     protected AuthorizationException(SerializationInfo info, StreamingContext context) : base(info, context) { }

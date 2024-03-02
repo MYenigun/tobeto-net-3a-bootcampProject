@@ -12,6 +12,6 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 
 
         builder.Property(x => x.Position).HasColumnName("Position");
-        
+
     }
 }

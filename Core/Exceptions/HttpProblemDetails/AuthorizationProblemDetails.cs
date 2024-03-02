@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Exceptions.HttpProblemDetails;
 
-public class AuthorizationProblemDetails:ProblemDetails
+public class AuthorizationProblemDetails : ProblemDetails
 {
     public AuthorizationProblemDetails(string detail)
     {

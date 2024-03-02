@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Requests.Applications;
 using Business.Responses.Applications;
+using Business.Rules;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities;
@@ -13,15 +14,19 @@ public class ApplicationManager : IApplicationService
 {
     private readonly IApplicationRepository _applicationRepository;
     private readonly IMapper _mapper;
+    private readonly ApplicationBusinessRules _rules;
 
-    public ApplicationManager(IApplicationRepository applicationRepository, IMapper mapper)
+    public ApplicationManager(IApplicationRepository applicationRepository, IMapper mapper, ApplicationBusinessRules rules)
     {
         _applicationRepository = applicationRepository;
         _mapper = mapper;
+        _rules = rules;
     }
 
     public async Task<IDataResult<CreateApplicationResponse>> AddAsync(CreateApplicationRequest request)
     {
+        await _rules.BlackListCheck(request.ApplicantId);
+
         Application application = _mapper.Map<Application>(request);
         await _applicationRepository.AddAsync(application);
 
@@ -44,7 +49,7 @@ public class ApplicationManager : IApplicationService
     public async Task<IDataResult<List<GetAllApplicationResponse>>> GetAllAsync()
     {
         List<Application> applications = await _applicationRepository.GetAllAsync(
-            include:x=>x.Include(x=>x.Applicant).Include(x => x.Bootcamp).Include(x => x.ApplicationState));
+            include: x => x.Include(x => x.Applicant).Include(x => x.Bootcamp).Include(x => x.ApplicationState));
 
         List<GetAllApplicationResponse> responses = _mapper.Map<List<GetAllApplicationResponse>>(applications);
         return new SuccessDataResult<List<GetAllApplicationResponse>>(responses);

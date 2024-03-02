@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
+using Business.Constants;
 using Business.Requests.Applicants;
 using Business.Responses.Applicants;
+using Business.Rules;
+using Core.Exceptions.Types;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities;
@@ -12,11 +15,13 @@ public class ApplicantManager : IApplicantService
 {
     private readonly IApplicantRepository _applicantRepository;
     private readonly IMapper _mapper;
+    private readonly ApllicantBusinessRules _rules;
 
-    public ApplicantManager(IApplicantRepository applicantRepository, IMapper mapper)
+    public ApplicantManager(IApplicantRepository applicantRepository, IMapper mapper, ApllicantBusinessRules rules)
     {
         _applicantRepository = applicantRepository;
         _mapper = mapper;
+        _rules = rules;
     }
 
     public async Task<IDataResult<CreateApplicantResponse>> AddAsync(CreateApplicantRequest request)
@@ -25,12 +30,14 @@ public class ApplicantManager : IApplicantService
         await _applicantRepository.AddAsync(applicant);
 
         CreateApplicantResponse response = _mapper.Map<CreateApplicantResponse>(applicant);
-        return new SuccessDataResult<CreateApplicantResponse>(response);
+        return new SuccessDataResult<CreateApplicantResponse>(response, ApplicantMessage.ApplicantAdded);
 
     }
 
     public async Task<IDataResult<DeleteApplicantResponse>> DeleteAsync(DeleteApplicantRequest request)
     {
+        await _rules.IsDeletedCheck(request.Id);
+
         var applicant = await _applicantRepository.GetAsync(a => a.Id == request.Id);
 
         await _applicantRepository.DeleteAsync(applicant);

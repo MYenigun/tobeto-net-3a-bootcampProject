@@ -5,7 +5,7 @@ using Entities;
 
 namespace Business.Profiles.Applicants;
 
-public class MappingProfiles:Profile
+public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {

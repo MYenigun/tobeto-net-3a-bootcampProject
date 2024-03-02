@@ -13,7 +13,7 @@ public class BootcampState : BaseEntity<int>
         Bootcamps = new HashSet<Bootcamp>();
     }
 
-    public BootcampState(int id,string name):this()
+    public BootcampState(int id, string name) : this()
     {
         Id = id;
         Name = name;
