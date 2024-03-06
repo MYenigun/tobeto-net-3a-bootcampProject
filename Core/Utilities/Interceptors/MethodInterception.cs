@@ -21,7 +21,7 @@ public abstract class MethodInterception : MethodInterceptionBaseAttribute
         {
 
             isSuccess = false;
-            OnException(invocation,e);
+            OnException(invocation, e);
             throw;
         }
         finally

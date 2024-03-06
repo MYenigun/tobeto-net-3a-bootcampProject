@@ -2,7 +2,7 @@
 
 namespace Entities;
 
-public class BlackList : BaseEntity<int>
+public class BlackList:BaseEntity<int>
 {
 
     public int ApplicantId { get; set; }
@@ -15,7 +15,7 @@ public class BlackList : BaseEntity<int>
     {
     }
 
-    public BlackList(int id, int applicantId, string reason, DateTime date)
+    public BlackList(int id,int applicantId, string reason, DateTime date)
     {
         Id = id;
         ApplicantId = applicantId;

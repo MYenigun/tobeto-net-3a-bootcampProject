@@ -13,7 +13,7 @@ public class ApplicationState : BaseEntity<int>
         Applications = new HashSet<Application>();
     }
 
-    public ApplicationState(int id, string name) : this()
+    public ApplicationState(int id,string name):this()
     {
         Id = id;
         Name = name;

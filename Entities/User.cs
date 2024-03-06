@@ -2,7 +2,7 @@
 
 namespace Entities;
 
-public class User : BaseEntity<int>
+public class User:BaseEntity<int>
 {
     public string Username { get; set; }
     public string FirstName { get; set; }
@@ -19,7 +19,7 @@ public class User : BaseEntity<int>
         UserImages = new HashSet<UserImage>();
     }
 
-    public User(int id, string username, string firstName, string lastName, DateTime dateOfBirth, string nationalIdentity, string email, string password)
+    public User(int id,string username, string firstName, string lastName, DateTime dateOfBirth, string nationalIdentity, string email, string password)
     {
         Id = id;
         Username = username;
